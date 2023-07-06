@@ -65,7 +65,9 @@ void main()
 
                 printf("\nWhat is your answer : ");
                 scanf("%d", &Q_Aanswer);
-
+                
+                sleep(1);
+                
                 if(Q_Aanswer == MCQ[i].right_ans) //check if the answer inserted by user is iqual to the right answer (sturct)
                 {
                     printf("That's the correct answer!\n\n");
