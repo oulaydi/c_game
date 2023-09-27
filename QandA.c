@@ -37,7 +37,7 @@ void main()
 
     int nbr_right_ans; // number of the correct ansers
     int score = 0;
-    int game_number = 0;
+    int g_number = 0;
     int answer, count;
     char Q_Aanswer;
 
@@ -46,14 +46,14 @@ void main()
 
     while(1)
     {
-        printf("Are you ready? (y/n) : ");
+        printf("Are you ready? my little friend (y/n) : ");
         fflush(stdin);
         scanf("%c", &answer);
         char lowerCase = tolower(answer); //i used the lowercase function, to change the user's input if it is upperCase
 
         if (lowerCase == 'n') //checking if the answer equal to 'n'
             goto end; //if its true then goto end below
-            game_number++; //increment the number of games
+            g_number++; //increment the number of games
             nbr_right_ans = 0;
 
             for(int i = 0; i <=19 ; i++)
@@ -63,14 +63,14 @@ void main()
                 printf("%s\n", MCQ[i].ans2);
                 printf("%s\n", MCQ[i].ans3);
 
-                printf("\nWhat is your answer : ");
+                printf("\nWhat is your answer my homie : ");
                 scanf("%d", &Q_Aanswer);
                 
                 sleep(1);
                 
                 if(Q_Aanswer == MCQ[i].right_ans) //check if the answer inserted by user is iqual to the right answer (sturct)
                 {
-                    printf("That's the correct answer!\n\n");
+                    printf("good job correct!\n\n");
                     nbr_right_ans++; //if the answer is right then number_of_answers it will increments
                     score += 5; // also the score will have the new value 5 and so on
                 }
@@ -80,7 +80,7 @@ void main()
                 }
             }
 
-            printf("You have played %d Q&A games \n", game_number);
+            printf("You have played %d Q&A games \n", g_number);
             sleep(1);
             printf("Your score is : %d%%\n", score);
             sleep(1);
@@ -89,5 +89,5 @@ void main()
 
     end :
         sleep(1);
-        printf("\nOKEY! bye bye :/ \n\n");
+        printf("\nOKEY! good bye see you later my friend :/ \n\n");
 }
