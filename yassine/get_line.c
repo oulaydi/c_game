@@ -1,13 +1,13 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * recuperate_line - assigns the line var for recuperate_line_2
+ * get_line - assigns the line var for next_line
  * @lineptr: Buffer that store the input str
  * @buffer: str that is been called to line
  * @n: size of line
  * @j: size of buffer
  */
-void recuperate_line(char **lineptr, size_t *n, char *buffer, size_t j)
+void get_line(char **lineptr, size_t *n, char *buffer, size_t j)
 {
 
 	if (*lineptr == NULL)
@@ -34,13 +34,13 @@ void recuperate_line(char **lineptr, size_t *n, char *buffer, size_t j)
 	}
 }
 /**
- * recuperate_line_2 - Read inpt from stream
+ * next_line - Read inpt from stream
  * @lineptr: buffer that stores the input
  * @n: size of lineptr
  * @stream: stream to read from
  * Return: The number of bytes
  */
-ssize_t recuperate_line_2(char **lineptr, size_t *n, FILE *stream)
+ssize_t next_line(char **lineptr, size_t *n, FILE *stream)
 {
 	int i;
 	static ssize_t input;
@@ -71,12 +71,12 @@ ssize_t recuperate_line_2(char **lineptr, size_t *n, FILE *stream)
 			break;
 		}
 		if (input >= BUFFER_SIZE)
-			buffer = _realloc(buffer, input, input + 1);
+			buffer = _realc(buffer, input, input + 1);
 		buffer[input] = t;
 		input++;
 	}
 	buffer[input] = '\0';
-	recuperate_line(lineptr, n, buffer, input);
+	get_line(lineptr, n, buffer, input);
 	retval = input;
 	if (i != 0)
 		input = 0;

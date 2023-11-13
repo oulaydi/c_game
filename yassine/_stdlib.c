@@ -1,11 +1,11 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * len_of_num - Get the lenght of a number.
+ * get_len - Get the lenght of a number.
  * @n: type int number.
  * Return: Lenght of a number.
  */
-int len_of_num(int n)
+int get_len(int n)
 {
 	unsigned int n1;
 	int lenght = 1;
@@ -35,7 +35,7 @@ int len_of_num(int n)
 char *_itoa(int n)
 {
 	unsigned int n1;
-	int lenght = len_of_num(n);
+	int lenght = get_len(n);
 	char *buffer;
 
 	buffer = malloc(sizeof(char) * (lenght + 1));
@@ -66,17 +66,17 @@ char *_itoa(int n)
 }
 
 /**
- * _atoi - converts a string to an integer.
+ * _ato_i - converts a string to an integer.
  * @s: input string.
  * Return: integer.
  */
-int _atoi(char *s)
+int _ato_i(char *s)
 {
-	unsigned int count = 0, taille = 0, oi = 0, pn = 1, m = 1, i;
+	unsigned int count = 0, size = 0, oi = 0, pn = 1, m = 1, i;
 
 	while (*(s + count) != '\0')
 	{
-		if (taille > 0 && (*(s + count) < '0' || *(s + count) > '9'))
+		if (size > 0 && (*(s + count) < '0' || *(s + count) > '9'))
 			break;
 
 		if (*(s + count) == '-')
@@ -84,14 +84,14 @@ int _atoi(char *s)
 
 		if ((*(s + count) >= '0') && (*(s + count) <= '9'))
 		{
-			if (taille > 0)
+			if (size > 0)
 				m *= 10;
-			taille++;
+			size++;
 		}
 		count++;
 	}
 
-	for (i = count - taille; i < count; i++)
+	for (i = count - size; i < count; i++)
 	{
 		oi = oi + ((*(s + i) - 48) * m);
 		m /= 10;

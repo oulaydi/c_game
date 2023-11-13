@@ -1,28 +1,28 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * iterative_char - counts the repetitions of a char
+ * loop_char - counts the repetitions of a char
  *
  * @input: input string
  * @i: index
  * Return: repetitions
  */
-int iterative_char(char *input, int i)
+int loop_char(char *input, int i)
 {
 	if (*(input - 1) == *input)
-		return (iterative_char(input - 1, i + 1));
+		return (loop_char(input - 1, i + 1));
 
 	return (i);
 }
 
 /**
- * err_sepa_op - finds syntax errors
+ * err_sepa_op - finds syntax errs
  *
  * @input: input string
  * @i: index
  * @last: last char read
- * Return: index of error. 0 when there are no
- * errors
+ * Return: index of err. 0 when there are no
+ * errs
  */
 int err_sepa_op(char *input, int i, char last)
 {
@@ -46,7 +46,7 @@ int err_sepa_op(char *input, int i, char last)
 
 		if (last == '|')
 		{
-			count = iterative_char(input, 0);
+			count = loop_char(input, 0);
 			if (count == 0 || count > 1)
 				return (i);
 		}
@@ -59,7 +59,7 @@ int err_sepa_op(char *input, int i, char last)
 
 		if (last == '&')
 		{
-			count = iterative_char(input, 0);
+			count = loop_char(input, 0);
 			if (count == 0 || count > 1)
 				return (i);
 		}
@@ -73,7 +73,7 @@ int err_sepa_op(char *input, int i, char last)
  *
  * @input: input string
  * @i: index
- * Return: 1 if there is an error. 0 in other case.
+ * Return: 1 if there is an err. 0 in other case.
  */
 int fst_char(char *input, int *i)
 {
@@ -93,17 +93,17 @@ int fst_char(char *input, int *i)
 }
 
 /**
- * display_syntax_err - prints when a syntax error is found
+ * display_stx_err - prints when a syntax err is found
  *
  * @datash: data structure
  * @input: input string
- * @i: index of the error
- * @bool: to control msg error
+ * @i: index of the err
+ * @bool: to control msg err
  * Return: no return
  */
-void display_syntax_err(data_shell *datash, char *input, int i, int bool)
+void display_stx_err(all_data_shell *datash, char *input, int i, int bool)
 {
-	char *msg, *msg2, *msg3, *error, *counter;
+	char *msg, *msg2, *msg3, *err, *counter;
 	int length;
 
 	if (input[i] == ';')
@@ -120,40 +120,40 @@ void display_syntax_err(data_shell *datash, char *input, int i, int bool)
 	if (input[i] == '&')
 		msg = (input[i + 1] == '&' ? "&&" : "&");
 
-	msg2 = ": Syntax error: \"";
+	msg2 = ": Syntax err: \"";
 	msg3 = "\" unexpected\n";
 	counter = _itoa(datash->counter);
 	length = _str_len(datash->av[0]) + _str_len(counter);
 	length += _str_len(msg) + _str_len(msg2) + _str_len(msg3) + 2;
 
-	error = malloc(sizeof(char) * (length + 1));
-	if (error == 0)
+	err = malloc(sizeof(char) * (length + 1));
+	if (err == 0)
 	{
 		free(counter);
 		return;
 	}
-	_str_cpy(error, datash->av[0]);
-	_str_cat(error, ": ");
-	_str_cat(error, counter);
-	_str_cat(error, msg2);
-	_str_cat(error, msg);
-	_str_cat(error, msg3);
-	_str_cat(error, "\0");
+	_str_cpy(err, datash->av[0]);
+	_str_cat(err, ": ");
+	_str_cat(err, counter);
+	_str_cat(err, msg2);
+	_str_cat(err, msg);
+	_str_cat(err, msg3);
+	_str_cat(err, "\0");
 
-	write(STDERR_FILENO, error, length);
-	free(error);
+	write(STDERR_FILENO, err, length);
+	free(err);
 	free(counter);
 }
 
 /**
- * verify_syntax_err - intermediate function to
- * find and print a syntax error
+ * verify_stx_err - intermediate function to
+ * find and print a syntax err
  *
  * @datash: data structure
  * @input: input string
- * Return: 1 if there is an error. 0 in other case
+ * Return: 1 if there is an err. 0 in other case
  */
-int verify_syntax_err(data_shell *datash, char *input)
+int verify_stx_err(all_data_shell *datash, char *input)
 {
 	int begin = 0;
 	int f_char = 0;
@@ -162,14 +162,14 @@ int verify_syntax_err(data_shell *datash, char *input)
 	f_char = fst_char(input, &begin);
 	if (f_char == -1)
 	{
-		display_syntax_err(datash, input, begin, 0);
+		display_stx_err(datash, input, begin, 0);
 		return (1);
 	}
 
 	i = err_sepa_op(input + begin, 0, *(input + begin));
 	if (i != 0)
 	{
-		display_syntax_err(datash, input, begin + i, 1);
+		display_stx_err(datash, input, begin + i, 1);
 		return (1);
 	}
 

@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * _str_cat - concatenate two strings
@@ -69,9 +69,9 @@ int _str_cmp(char *s1, char *s2)
  */
 char *_str_chr(char *s, char c)
 {
-	unsigned int i;
+	unsigned int i = 0;
 
-	for (i = 0; *(s + i) != '\0'; i++)
+	for (; *(s + i) != '\0'; i++)
 		if (*(s + i) == c)
 			return (s + i);
 	if (*(s + i) == c)

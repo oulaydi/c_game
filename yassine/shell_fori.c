@@ -1,12 +1,12 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * without_cmd - deletes comments from the input
+ * not_cmtr - deletes comments from the input
  *
  * @in: input string
  * Return: input without comments
  */
-char *without_cmd(char *in)
+char *not_cmtr(char *in)
 {
 	int i, up_to;
 
@@ -28,7 +28,7 @@ char *without_cmd(char *in)
 
 	if (up_to != 0)
 	{
-		in = _realloc(in, i, up_to + 1);
+		in = _realc(in, i, up_to + 1);
 		in[up_to] = '\0';
 	}
 
@@ -41,7 +41,7 @@ char *without_cmd(char *in)
  *
  * Return: no return.
  */
-void shell_fori(data_shell *datash)
+void shell_fori(all_data_shell *datash)
 {
 	int loop, i_eof;
 	char *input;
@@ -50,21 +50,21 @@ void shell_fori(data_shell *datash)
 	while (loop == 1)
 	{
 		write(STDIN_FILENO, "^-^ ", 4);
-		input = r_line(&i_eof);
+		input = play_line(&i_eof);
 		if (i_eof != -1)
 		{
-			input = without_cmd(input);
+			input = not_cmtr(input);
 			if (input == NULL)
 				continue;
 
-			if (verify_syntax_err(datash, input) == 1)
+			if (verify_stx_err(datash, input) == 1)
 			{
 				datash->status = 2;
 				free(input);
 				continue;
 			}
-			input = rep_str_to_var(input, datash);
-			loop = divide_cmds(datash, input);
+			input = rep_str(input, datash);
+			loop = qsem_cmd(datash, input);
 			datash->counter += 1;
 			free(input);
 		}

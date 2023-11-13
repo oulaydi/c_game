@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * _str_dup - duplicates a str in the heap memory.
@@ -14,7 +14,7 @@ char *_str_dup(const char *s)
 	new = malloc(sizeof(char) * (len + 1));
 	if (new == NULL)
 		return (NULL);
-	_memcpy(new, s, len + 1);
+	_mem_cpy(new, s, len + 1);
 	return (new);
 }
 
@@ -34,13 +34,13 @@ int _str_len(const char *s)
 }
 
 /**
- * _cmp_char - compare char of strings
+ * cmp_str - compare chars of strings
  * @str: input string.
  * @delim: delimiter.
  *
  * Return: 1 if are equals, 0 if not.
  */
-int _cmp_char(char str[], const char *delim)
+int cmp_str(char str[], const char *delim)
 {
 	unsigned int i, j, k;
 
@@ -75,7 +75,7 @@ char *_str_tok(char str[], const char *delim)
 
 	if (str != NULL)
 	{
-		if (_cmp_char(str, delim))
+		if (cmp_str(str, delim))
 			return (NULL);
 		splitted = str; /*Store first address*/
 		i = _str_len(str);
